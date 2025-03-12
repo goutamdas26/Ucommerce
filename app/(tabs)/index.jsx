@@ -9,8 +9,11 @@ import {
   StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       {/* 🔍 Search Bar */}
@@ -19,7 +22,7 @@ const HomeScreen = () => {
         <TextInput
           style={styles.searchInput}
           placeholder="Search for products..."
-          placeholderTextColor="#aaa"
+          placeholderTextColor="#B0B0B0"
         />
       </View>
 
@@ -33,7 +36,11 @@ const HomeScreen = () => {
         >
           {["Shoes", "Watches", "Mobiles", "Laptops", "Fashion"].map(
             (item, index) => (
-              <TouchableOpacity key={index} style={styles.categoryCard}>
+              <TouchableOpacity 
+                key={index} 
+                style={styles.categoryCard} 
+                onPress={() => navigation.navigate("")} 
+              >
                 <Text style={styles.categoryText}>{item}</Text>
               </TouchableOpacity>
             )
@@ -84,17 +91,21 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#121212",
     paddingHorizontal: 15,
     paddingTop: 50,
   },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#1A1A1A",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: 25,
     padding: 12,
     marginBottom: 20,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 5,
   },
   searchInput: {
     flex: 1,
@@ -111,11 +122,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   categoryCard: {
-    backgroundColor: "#1A1A1A",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
     marginRight: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
   },
   categoryText: {
     color: "#fff",
@@ -138,11 +153,15 @@ const styles = StyleSheet.create({
   },
   productCard: {
     width: "48%",
-    backgroundColor: "#1A1A1A",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     padding: 10,
     borderRadius: 10,
     marginBottom: 15,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
   },
   productImage: {
     width: 100,
@@ -156,7 +175,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   productPrice: {
-    color: "#0FA958",
+    color: "#FF4081",
     fontSize: 14,
     fontWeight: "bold",
     marginTop: 2,

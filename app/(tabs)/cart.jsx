@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import laptopImage from '../../assets/images/laptop.png'
+import laptopImage from '../../assets/images/laptop.png';
+
 const initialCart = [
   {
     id: "1",
@@ -84,7 +85,7 @@ const CartScreen = () => {
             renderItem={({ item }) => (
               <View style={styles.cartItem}>
                 <Image
-                  source={laptopImage}
+                  source={{ uri: item.image }}
                   style={styles.itemImage}
                 />
                 <View style={styles.itemDetails}>
@@ -129,15 +130,16 @@ export default CartScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0D0D0D",
+    backgroundColor: "#121212",
     padding: 15,
     paddingTop: 50,
   },
   header: {
-    color: "#fff",
-    fontSize: 22,
+    color: "#FFD700", // Gold color for luxury
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: "center",
   },
   emptyText: {
     color: "#bbb",
@@ -153,6 +155,8 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 10,
     shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
     elevation: 5,
   },
   itemImage: {
@@ -166,12 +170,12 @@ const styles = StyleSheet.create({
   },
   itemName: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
   itemPrice: {
-    color: "#bbb",
-    fontSize: 14,
+    color: "#FFD700", // Gold color for luxury
+    fontSize: 16,
     marginVertical: 5,
   },
   quantityContainer: {

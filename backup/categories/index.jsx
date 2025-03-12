@@ -7,41 +7,45 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
-import laptopImage from '../../assets/images/laptop.png'
+import laptopImage from "../../../assets/images/laptop.png";
+import { useRouter } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+
 const categories = [
   {
     id: "1",
-    name: "Mobiles",
+    category: "Mobiles",
     image: "https://source.unsplash.com/100x100/?smartphone",
   },
   {
     id: "2",
-    name: "Laptops",
+    category: "Laptops",
     image: "https://source.unsplash.com/100x100/?laptop",
   },
   {
     id: "3",
-    name: "Watches",
+    category: "Watches",
     image: "https://source.unsplash.com/100x100/?watch",
   },
   {
     id: "4",
-    name: "Fashion",
+    category: "Fashion",
     image: "https://source.unsplash.com/100x100/?fashion",
   },
   {
     id: "5",
-    name: "Shoes",
+    category: "Shoes",
     image: "https://source.unsplash.com/100x100/?shoes",
   },
   {
     id: "6",
-    name: "Accessories",
+    category: "Accessories",
     image: "https://source.unsplash.com/100x100/?accessories",
   },
 ];
 
 const CategoriesScreen = () => {
+const navigation =useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Categories</Text>
@@ -53,12 +57,19 @@ const CategoriesScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.categoryCard}>
+          <TouchableOpacity
+            style={styles.categoryCard}
+            onPress={() =>
+              navigation.navigate("display-categories", {
+                category: item.category,
+              })
+            }
+          >
             <Image
-              source={laptopImage}
+              source={laptopImage} // Use the image from the category
               style={styles.categoryImage}
             />
-            <Text style={styles.categoryText}>{item.name}</Text>
+            <Text style={styles.categoryText}>{item.category}</Text>
           </TouchableOpacity>
         )}
       />
@@ -71,15 +82,16 @@ export default CategoriesScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0D0D0D",
-    padding: 15,
+    backgroundColor: "#121212", // Darker background for luxury feel
+    padding: 20,
     paddingTop: 50,
   },
   header: {
-    color: "#fff",
-    fontSize: 22,
+    color: "#FFD700", // Gold color for luxury
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: "center",
   },
   listContainer: {
     paddingBottom: 20,
@@ -87,24 +99,25 @@ const styles = StyleSheet.create({
   categoryCard: {
     flex: 1,
     backgroundColor: "#1A1A1A",
-    borderRadius: 15,
+    borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-    padding: 15,
-    margin: 8,
-    elevation: 5,
+    padding: 20,
+    margin: 10,
+    elevation: 10,
     shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
   },
   categoryImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 10,
+    width: 80,
+    height: 80,
+    borderRadius: 15,
     marginBottom: 10,
-  
   },
   categoryText: {
     color: "#fff",
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });

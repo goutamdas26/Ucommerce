@@ -8,11 +8,21 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import userImage from '../../assets/images/user.png'
+import userImage from '../../assets/images/user.png';
+
 const AccountScreen = () => {
   const [walletBalance, setWalletBalance] = useState(5000);
   const [referId] = useState("GOUTAM123"); // Sample referral ID
-const router=useRouter()
+  const router = useRouter();
+
+  const handleWishlistPress = () => {
+    // Check if wishlist is working
+    // If not, you can show an alert or redirect to a different page
+    // For now, we will just log a message
+    console.log("Wishlist button pressed");
+    router.push("/wishlist");
+  };
+
   return (
     <View style={styles.container}>
       {/* User Profile & Wallet Section */}
@@ -32,11 +42,17 @@ const router=useRouter()
       >
         {/* Quick Actions - 2x2 Grid */}
         <View style={styles.quickActions}>
-          <TouchableOpacity style={styles.actionButton}>
+          <TouchableOpacity
+            style={styles.actionButton}
+            onPress={() => router.push("/orders")}
+          >
             <Text style={styles.actionText}>📦 Orders</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.actionButton}>
+          <TouchableOpacity
+            style={styles.actionButton}
+            onPress={() => router.push("/wishlist")}
+          >
             <Text style={styles.actionText}>💖 Wishlist</Text>
           </TouchableOpacity>
 
@@ -70,7 +86,7 @@ const router=useRouter()
         <TouchableOpacity style={styles.option}>
           <Text style={styles.optionText}>📦 Order History</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={handleWishlistPress}>
           <Text style={styles.optionText}>💖 Wishlist</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option}>
