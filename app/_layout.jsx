@@ -29,6 +29,7 @@ export default function RootLayout() {
         />
         <Stack.Screen name="wishlist" options={{ title: "Wishlists" }} />
         <Stack.Screen name="orders" options={{ title: "Orders" }} />
+        <Stack.Screen name="help-center" options={{ title: "Help Support" }} />
       </Stack>
     </>
   );

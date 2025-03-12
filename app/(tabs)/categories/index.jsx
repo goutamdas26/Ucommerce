@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import laptopImage from "../../../assets/images/laptop.png";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 
 const categories = [
@@ -16,11 +16,14 @@ const categories = [
     id: "1",
     category: "Mobiles",
     image: "https://source.unsplash.com/100x100/?smartphone",
+    rating:3,
+    discount:5
   },
   {
     id: "2",
     category: "Laptops",
     image: "https://source.unsplash.com/100x100/?laptop",
+    
   },
   {
     id: "3",
@@ -59,11 +62,8 @@ const navigation =useNavigation();
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.categoryCard}
-            onPress={() =>
-              navigation.navigate("display-categories", {
-                category: item.category,
-              })
-            }
+            onPress={() => router.push({pathname:`/categories/${item.category}`,
+              params: { product: JSON.stringify(item) }})}
           >
             <Image
               source={laptopImage} // Use the image from the category
@@ -121,3 +121,15 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 });
+
+// import { View, Text, Button } from "react-native";
+// import { router } from "expo-router";
+
+// export default function CategoryPage() {
+//   return (
+//     <View>
+//       <Text>Categories</Text>
+//       <Button title="View Product 101" onPress={() => router.push("/categories/101")} />
+//     </View>
+//   );
+// }

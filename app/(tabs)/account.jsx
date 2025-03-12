@@ -60,7 +60,7 @@ const AccountScreen = () => {
             <Text style={styles.actionText}>🎟️ Coupons</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.actionButton}>
+          <TouchableOpacity style={styles.actionButton} onPress={()=>router.push("/help-center")}>
             <Text style={styles.actionText}>🛠 Help Center</Text>
           </TouchableOpacity>
         </View>
@@ -83,7 +83,7 @@ const AccountScreen = () => {
         </TouchableOpacity>
         {/* My Activity */}
         <Text style={styles.sectionTitle}>📜 My Activity</Text>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={()=>router.push("/orders")}>
           <Text style={styles.optionText}>📦 Order History</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option} onPress={handleWishlistPress}>
