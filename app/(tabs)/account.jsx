@@ -7,9 +7,11 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  ToastAndroid,
+  Share
 } from "react-native";
 import userImage from '../../assets/images/user.png';
-
+import * as Clipboard from "expo-clipboard";
 const AccountScreen = () => {
   const [walletBalance, setWalletBalance] = useState(5000);
   const [referId] = useState("GOUTAM123"); // Sample referral ID
@@ -22,7 +24,18 @@ const AccountScreen = () => {
     console.log("Wishlist button pressed");
     router.push("/wishlist");
   };
-
+  const handleCopyReferral = () => {
+    Clipboard.setStringAsync(referId);
+    ToastAndroid.show("Referral Code Copied!", ToastAndroid.SHORT);
+  };
+  const handleShareApp = async () => {
+    try {
+      const message = `Join this app using my referral code: ${referId}. Download now: https://example.com/app`;
+      await Share.share({ message });
+    } catch (error) {
+      console.log("Error sharing:", error);
+    }
+  };
   return (
     <View style={styles.container}>
       {/* User Profile & Wallet Section */}
@@ -31,7 +44,9 @@ const AccountScreen = () => {
         <View>
           <Text style={styles.userName}>Goutam Das</Text>
           <Text style={styles.walletBalance}>Wallet: ₹{walletBalance}</Text>
+          <TouchableOpacity onPress={handleCopyReferral}>
           <Text style={styles.referId}>Referral ID: {referId}</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -89,7 +104,7 @@ const AccountScreen = () => {
         <TouchableOpacity style={styles.option} onPress={handleWishlistPress}>
           <Text style={styles.optionText}>💖 Wishlist</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={()=>router.push("/userr-coupons")}>
           <Text style={styles.optionText}>🎟️ My Coupons</Text>
         </TouchableOpacity>
         {/* More Options */}
@@ -97,7 +112,7 @@ const AccountScreen = () => {
         <TouchableOpacity style={styles.option}>
           <Text style={styles.optionText}>🛠 Help Center</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={handleShareApp}>
           <Text style={styles.optionText}>⚡ Refer & Earn</Text>
         </TouchableOpacity>
         {/* Logout Button */}

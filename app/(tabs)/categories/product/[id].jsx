@@ -32,15 +32,17 @@ const DisplayProduct = () => {
 
       {/* Recommended Products */}
       <Text style={styles.recommendedTitle}>Recommended Products</Text>
-      <View style={styles.recommendedContainer}>
-        {product.recommendedProducts.map((item, index) => (
-          <View key={index} style={styles.recommendedItem}>
-            <Image source={{ uri: item.image }} style={styles.recommendedImage} />
-            <Text style={styles.recommendedName}>{item.name}</Text>
-            <Text style={styles.recommendedPrice}>₹{item.price}</Text>
-          </View>
-        ))}
-      </View>
+      {product.recommendedProducts && product.recommendedProducts.length > 0 && (
+        <View style={styles.recommendedContainer}>
+          {product.recommendedProducts.map((item, index) => (
+            <View key={index} style={styles.recommendedItem}>
+              <Image source={{ uri: item.image }} style={styles.recommendedImage} />
+              <Text style={styles.recommendedName}>{item.name}</Text>
+              <Text style={styles.recommendedPrice}>₹{item.price}</Text>
+            </View>
+          ))}
+        </View>
+      )}
     </ScrollView>
   );
 };

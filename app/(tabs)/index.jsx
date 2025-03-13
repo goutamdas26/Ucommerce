@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { router } from "expo-router";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -27,7 +28,7 @@ const HomeScreen = () => {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* 🏷️ Categories Section */}
+        {/* 🏷️ Categories */}
         <Text style={styles.sectionTitle}>Categories</Text>
         <ScrollView
           horizontal
@@ -36,10 +37,10 @@ const HomeScreen = () => {
         >
           {["Shoes", "Watches", "Mobiles", "Laptops", "Fashion"].map(
             (item, index) => (
-              <TouchableOpacity 
-                key={index} 
-                style={styles.categoryCard} 
-                onPress={() => navigation.navigate("")} 
+              <TouchableOpacity
+                key={index}
+                style={styles.categoryCard}
+                onPress={() => router.push(`categories/${item}`)}
               >
                 <Text style={styles.categoryText}>{item}</Text>
               </TouchableOpacity>
@@ -58,7 +59,7 @@ const HomeScreen = () => {
             <Image
               key={index}
               source={{
-                uri: "https://th.bing.com/th/id/OIP.yjSbZJfj8V3T6Nub4Cv97wHaEy?rs=1&pid=ImgDetMain",
+                uri: "https://source.unsplash.com/300x150/?shopping,discount",
               }}
               style={styles.bannerImage}
             />
@@ -72,7 +73,7 @@ const HomeScreen = () => {
             <View key={index} style={styles.productCard}>
               <Image
                 source={{
-                  uri: "https://th.bing.com/th/id/OIP.yjSbZJfj8V3T6Nub4Cv97wHaEy?rs=1&pid=ImgDetMain",
+                  uri: "https://source.unsplash.com/100x100/?electronics,gadget",
                 }}
                 style={styles.productImage}
               />
@@ -91,7 +92,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: "#080808", // Deep dark black
     paddingHorizontal: 15,
     paddingTop: 50,
   },
@@ -102,10 +103,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: 12,
     marginBottom: 20,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
   },
   searchInput: {
     flex: 1,
@@ -114,28 +113,32 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
+    textShadowColor: "rgba(255, 255, 255, 1)", // White neon glow
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
   categoryScroll: {
     marginBottom: 20,
   },
   categoryCard: {
     backgroundColor: "rgba(255, 255, 255, 0.1)",
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 20,
     marginRight: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
   },
   categoryText: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "600",
+    textShadowColor: "rgba(255, 255, 255, 1)", // White neon glow
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
   bannerScroll: {
     marginBottom: 20,
@@ -144,7 +147,8 @@ const styles = StyleSheet.create({
     width: 300,
     height: 150,
     borderRadius: 15,
-    marginRight: 10,
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
   },
   productGrid: {
     flexDirection: "row",
@@ -154,30 +158,36 @@ const styles = StyleSheet.create({
   productCard: {
     width: "48%",
     backgroundColor: "rgba(255, 255, 255, 0.1)",
-    padding: 10,
-    borderRadius: 10,
+    padding: 15,
+    borderRadius: 12,
     marginBottom: 15,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
   },
   productImage: {
     width: 100,
     height: 100,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
   },
   productName: {
     color: "#fff",
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: "700",
     marginTop: 5,
+    textShadowColor: "rgba(255, 255, 255, 1)", // White neon glow
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
   productPrice: {
-    color: "#FF4081",
-    fontSize: 14,
+    color: "#FFFFFF",
+    fontSize: 16,
     fontWeight: "bold",
-    marginTop: 2,
+    marginTop: 5,
+    textShadowColor: "rgba(255, 255, 255, 1)", // White neon glow
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
 });
