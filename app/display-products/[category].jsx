@@ -1,8 +1,8 @@
 import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import React from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import GoBackButton from '../../../src/components/goBackBtn';
-import GoBackButton2 from '../../../src/components/goBackBtn2';
+import GoBackButton2 from '../../src/components/goBackBtn2';
+
 
 const products = {
   Mobiles: [

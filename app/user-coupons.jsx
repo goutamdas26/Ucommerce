@@ -2,6 +2,8 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity, ToastAndroid } from
 import { useState } from "react";
 import * as Clipboard from "expo-clipboard";
 import { LinearGradient } from "expo-linear-gradient";
+import GoBackButton from "../src/components/goBackBtn";
+import GoBackButton2 from "../src/components/goBackBtn2";
 
 const MyCoupons = () => {
   const [coupons, setCoupons] = useState([
@@ -17,6 +19,7 @@ const MyCoupons = () => {
 
   return (
     <LinearGradient colors={["#0D0D0D", "#1C1C1E"]} style={styles.container}>
+      <GoBackButton2/>
       <Text style={styles.title}>My Coupons</Text>
       {coupons.length > 0 ? (
         <FlatList

@@ -1,8 +1,9 @@
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import { useLocalSearchParams, router } from "expo-router";
-import GoBackButton from "../../../../src/components/goBackBtn";
-import GoBackButton2 from "../../../../src/components/goBackBtn2";
+import GoBackButton2 from "../../src/components/goBackBtn2";
+
+
 
 const DisplayProduct = () => {
   const { id } = useLocalSearchParams(); // Get product ID from route

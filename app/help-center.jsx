@@ -1,9 +1,12 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
+import GoBackButton from '../src/components/goBackBtn';
+import GoBackButton2 from '../src/components/goBackBtn2';
 
 const HelpSupport = () => {
   return (
     <View style={styles.container}>
+      <GoBackButton2/>
       <View style={styles.card}>
         <Text style={styles.title}>Help & Support</Text>
         <Text style={styles.description}>

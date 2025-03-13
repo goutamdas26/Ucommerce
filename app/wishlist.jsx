@@ -1,5 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
+import GoBackButton from '../src/components/goBackBtn';
+import GoBackButton2 from '../src/components/goBackBtn2';
 
 const wishlistItems = [
   { id: '1', name: 'Luxury Watch', price: '₹5000' },
@@ -10,6 +12,7 @@ const wishlistItems = [
 const Wishlist = () => {
   return (
     <View style={styles.container}>
+      <GoBackButton2/>
       <Text style={styles.header}>My Wishlist</Text>
       <FlatList
         data={wishlistItems}

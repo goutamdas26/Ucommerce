@@ -11,12 +11,12 @@ import { router } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 
 const categories = [
-  { id: "1", category: "Mobiles", image: "https://source.unsplash.com/100x100/?smartphone" },
-  { id: "2", category: "Laptops", image: "https://source.unsplash.com/100x100/?laptop" },
-  { id: "3", category: "Watches", image: "https://source.unsplash.com/100x100/?watch" },
-  { id: "4", category: "Fashion", image: "https://source.unsplash.com/100x100/?fashion" },
-  { id: "5", category: "Shoes", image: "https://source.unsplash.com/100x100/?shoes" },
-  { id: "6", category: "Accessories", image: "https://source.unsplash.com/100x100/?accessories" },
+  { id: "1", category: "Mobiles", image: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg" },
+  { id: "2", category: "Laptops", image: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg" },
+  { id: "3", category: "Watches", image: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg" },
+  { id: "4", category: "Fashion", image: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg" },
+  { id: "5", category: "Shoes", image: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg" },
+  { id: "6", category: "Accessories", image: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg" },
 ];
 
 const CategoriesScreen = () => {

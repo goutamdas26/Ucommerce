@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import laptopImage from '../../assets/images/laptop.png';
+import laptopImage from '../assets/images/laptop.png';
 
 const initialCart = [
   {

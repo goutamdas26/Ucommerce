@@ -10,8 +10,10 @@ import {
   ToastAndroid,
   Share
 } from "react-native";
+import * as SecureStore from "expo-secure-store";
 import userImage from '../../assets/images/user.png';
 import * as Clipboard from "expo-clipboard";
+import * as Updates from 'expo-updates';
 const AccountScreen = () => {
   const [walletBalance, setWalletBalance] = useState(5000);
   const [referId] = useState("GOUTAM123"); // Sample referral ID
@@ -36,6 +38,10 @@ const AccountScreen = () => {
       console.log("Error sharing:", error);
     }
   };
+  const handlelogout =async()=>{
+    await SecureStore.deleteItemAsync("userToken");
+    await Updates.reloadAsync();
+  }
   return (
     <View style={styles.container}>
       {/* User Profile & Wallet Section */}
@@ -104,19 +110,22 @@ const AccountScreen = () => {
         <TouchableOpacity style={styles.option} onPress={handleWishlistPress}>
           <Text style={styles.optionText}>💖 Wishlist</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option} onPress={()=>router.push("/userr-coupons")}>
+        <TouchableOpacity style={styles.option} onPress={()=>router.push("/user-coupons")}>
           <Text style={styles.optionText}>🎟️ My Coupons</Text>
         </TouchableOpacity>
         {/* More Options */}
         <Text style={styles.sectionTitle}>🔍 More</Text>
-        <TouchableOpacity style={styles.option}>
-          <Text style={styles.optionText}>🛠 Help Center</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.option} onPress={handleShareApp}>
-          <Text style={styles.optionText}>⚡ Refer & Earn</Text>
-        </TouchableOpacity>
+<TouchableOpacity style={styles.option} onPress={()=>router.push("browse-product")}>
+  <Text style={styles.optionText}>🛠 Help Center</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.option} onPress={handleShareApp}>
+  <Text style={styles.optionText}>⚡ Refer & Earn</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.option} onPress={() => router.push("/referred-users")}>
+  <Text style={styles.optionText}>👥 Referred Users</Text>
+</TouchableOpacity>
         {/* Logout Button */}
-        <TouchableOpacity style={styles.logoutButton}>
+        <TouchableOpacity style={styles.logoutButton} onPress={handlelogout}>
           <Text style={styles.logoutText}>🚪 Logout</Text>
         </TouchableOpacity>
       </ScrollView>

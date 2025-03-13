@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { Ionicons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import GoBackButton from "../src/components/goBackBtn";
+import GoBackButton2 from "../src/components/goBackBtn2";
 
 const PaymentMethodsScreen = () => {
     const router=useRouter()
@@ -53,6 +55,7 @@ const PaymentMethodsScreen = () => {
 
   return (
     <View style={styles.container}>
+      <GoBackButton2/>
       <Text style={styles.title}>Saved Payment Methods</Text>
 
       {/* Payment Methods List */}
@@ -85,7 +88,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#0D0D0D",
-    padding: 20,
+    paddingHorizontal:10,
+    paddingVertical:5
   },
   title: {
     color: "#fff",

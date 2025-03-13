@@ -40,7 +40,7 @@ const HomeScreen = () => {
               <TouchableOpacity
                 key={index}
                 style={styles.categoryCard}
-                onPress={() => router.push(`categories/${item}`)}
+                onPress={() => router.push(`display-products/${item}`)}
               >
                 <Text style={styles.categoryText}>{item}</Text>
               </TouchableOpacity>
@@ -59,7 +59,7 @@ const HomeScreen = () => {
             <Image
               key={index}
               source={{
-                uri: "https://source.unsplash.com/300x150/?shopping,discount",
+                uri: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg",
               }}
               style={styles.bannerImage}
             />
@@ -70,16 +70,16 @@ const HomeScreen = () => {
         <Text style={styles.sectionTitle}>Trending Products</Text>
         <View style={styles.productGrid}>
           {[1, 2, 3, 4].map((item, index) => (
-            <View key={index} style={styles.productCard}>
+            <TouchableOpacity key={index} style={styles.productCard} >
               <Image
                 source={{
-                  uri: "https://source.unsplash.com/100x100/?electronics,gadget",
+                  uri: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg",
                 }}
                 style={styles.productImage}
               />
               <Text style={styles.productName}>Luxury Item</Text>
               <Text style={styles.productPrice}>₹1999</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "#FFFFFF",
+    margin:5
   },
   productGrid: {
     flexDirection: "row",

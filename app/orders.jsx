@@ -1,5 +1,7 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import React from 'react';
+import GoBackButton from '../src/components/goBackBtn';
+import GoBackButton2 from '../src/components/goBackBtn2';
 
 const orderData = [
   { id: '1', item: 'Luxury Watch', price: '₹5000', status: 'Delivered' },
@@ -19,6 +21,7 @@ const Orders = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>My Orders</Text>
+      <GoBackButton2/>
       <FlatList
         data={orderData}
         keyExtractor={(item) => item.id}

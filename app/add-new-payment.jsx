@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { Ionicons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import GoBackButton2 from "../src/components/goBackBtn2";
+import GoBackButton from "../src/components/goBackBtn";
 
 const AddPaymentMethodScreen = ({ navigation }) => {
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -27,7 +29,8 @@ const router=useRouter()
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add New Payment Method</Text>
+      <GoBackButton2/>
+      <Text style={styles.title}>Add Payment Method</Text>
 
       {/* Payment Method Selection */}
       <View style={styles.methodContainer}>
@@ -116,6 +119,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 20,
+    top:8
   },
   methodContainer: {
     flexDirection: "row",

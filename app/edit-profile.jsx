@@ -8,6 +8,8 @@ import {
   StyleSheet,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import GoBackButton from "../src/components/goBackBtn";
+import GoBackButton2 from "../src/components/goBackBtn2";
 
 const EditProfileScreen = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -31,6 +33,7 @@ const EditProfileScreen = () => {
   return (
     <View style={styles.container}>
       {/* Profile Image */}
+      <GoBackButton2/>
       <TouchableOpacity onPress={pickImage} style={styles.imageContainer}>
         <Image
           source={
