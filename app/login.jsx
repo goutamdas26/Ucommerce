@@ -2,6 +2,10 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import React, { useState, useEffect } from 'react';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
+import axios from 'axios'; // Import axios for API calls
+import Constants from "expo-constants";
+
+const API_URL = Constants.expoConfig.extra.API_URL;
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -17,22 +21,27 @@ const LoginScreen = () => {
     checkLoginStatus();
   }, []);
 
-  // Hardcoded user credentials
-  const dummyUser = {
-    email: "12",
-    password: "12",
-  };
-
   const handleLogin = async () => {
-    if (email === dummyUser.email && password === dummyUser.password) {
-      // Store fake token in SecureStore
-      await SecureStore.setItemAsync("userToken", "dummy_token_123");
+    try {
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
+        email,
+        password,
+      });
+      if (response.status==200) {
+        // Store token in SecureStore
+        await SecureStore.setItemAsync("userToken", response.data.token);
+        console.log(response.data.token)
+        Alert.alert("Success", "Login Successful!");
+        router.replace("/(tabs)"); // Navigate to Home
+      } else {
+        Alert.alert("Error", "Invalid email or password!");
+      }
+    } catch (error) {
 
-      Alert.alert("Success", "Login Successful!");
-      router.replace("/(tabs)"); // Navigate to Home
-    } else {
-      Alert.alert("Error", "Invalid email or password!");
+
+      Alert.alert("Error", "Login failed! Please try again.");
     }
+   
   };
 
   return (

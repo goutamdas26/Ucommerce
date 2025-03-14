@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,9 +11,16 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { router } from "expo-router";
+import Constants from "expo-constants";
+import { ProductContext } from "../../src/contexts/AuthContext";
+const API_URL = Constants.expoConfig.extra.API_URL;
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const {products, fetchProducts, addProduct, updateProduct, deleteProduct  } = useContext(ProductContext);
+  useEffect(()=>{
+fetchProducts()
+  },[])
 
   return (
     <View style={styles.container}>
@@ -69,7 +76,7 @@ const HomeScreen = () => {
         {/* 🛍️ Featured Products */}
         <Text style={styles.sectionTitle}>Trending Products</Text>
         <View style={styles.productGrid}>
-          {[1, 2, 3, 4].map((item, index) => (
+          {products.map((item, index) => (
             <TouchableOpacity key={index} style={styles.productCard} >
               <Image
                 source={{
@@ -77,8 +84,8 @@ const HomeScreen = () => {
                 }}
                 style={styles.productImage}
               />
-              <Text style={styles.productName}>Luxury Item</Text>
-              <Text style={styles.productPrice}>₹1999</Text>
+              <Text style={styles.productName}>{item.name}</Text>
+              <Text style={styles.productPrice}>₹{item.price }</Text>
             </TouchableOpacity>
           ))}
         </View>

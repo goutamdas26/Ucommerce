@@ -1,8 +1,9 @@
 import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import GoBackButton from '../../../src/components/goBackBtn';
 import GoBackButton2 from '../../../src/components/goBackBtn2';
+import { ProductContext } from '../../../src/contexts/AuthContext';
 
 const products = {
   Mobiles: [
@@ -20,15 +21,18 @@ const products = {
 const DisplayCategories = () => {
   const { category } = useLocalSearchParams();
   const categoryProducts = products[category] || [];
-
+  const { getCategoryProduct ,categoryProduct}=useContext(ProductContext)
+  useEffect(()=>{
+  getCategoryProduct(category)
+  },[])
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{category} Collection</Text>
       <GoBackButton2/>
-      {categoryProducts.length > 0 ? (
+      {categoryProduct.length > 0 ? (
         <FlatList
-          data={categoryProducts}
-          keyExtractor={(item) => item.id}
+          data={categoryProduct}
+          keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.card} onPress={()=>router.push({
               pathname: `categories/product/${item.id}`,

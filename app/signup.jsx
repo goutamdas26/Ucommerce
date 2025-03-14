@@ -1,12 +1,36 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { router } from 'expo-router';
+import Constants from "expo-constants";
+import axios from 'axios'; // Import axios for API calls
+
+const API_URL = Constants.expoConfig.extra.API_URL;
 
 const SignupScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [referralCode, setReferralCode] = useState('');
+
+  const handleSignup = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/api/auth/register`, {
+        name,
+        email,
+        password,
+        referralCode,
+      });
+
+      if (response.data.success) {
+        Alert.alert("Success", "Account created successfully!");
+        router.push('/login'); // Redirect to login after successful signup
+      } else {
+        Alert.alert("Error", response.data.message || "Signup failed! Please try again.");
+      }
+    } catch (error) {
+      Alert.alert("Error", "Signup failed! Please try again.");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -47,7 +71,7 @@ const SignupScreen = () => {
         onChangeText={setReferralCode}
       />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
 

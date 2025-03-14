@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
+import { ProductContext } from "../../../src/contexts/AuthContext";
 
 const categories = [
   { id: "1", category: "Mobiles", image: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg" },
@@ -21,31 +22,37 @@ const categories = [
 
 const CategoriesScreen = () => {
   const navigation = useNavigation();
-
+  const { getCategoryList ,categoryList}=useContext(ProductContext)
+  useEffect(()=>{
+  getCategoryList()
+  },[])
+  
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Explore Categories</Text>
-      <FlatList
-        data={categories}
-        keyExtractor={(item) => item.id}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.listContainer}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.categoryCard}
-            onPress={() =>
-              router.push({
-                pathname: `/categories/${item.category}`,
-                params: { product: JSON.stringify(item) },
-              })
-            }
-          >
-            <Image source={{ uri: item.image }} style={styles.categoryImage} />
-            <Text style={styles.categoryText}>{item.category}</Text>
-          </TouchableOpacity>
-        )}
-      />
+{
+  categoryList.length>0 &&       <FlatList
+  data={categoryList}
+  keyExtractor={(item) => item}
+  numColumns={2}
+  showsVerticalScrollIndicator={false}
+  contentContainerStyle={styles.listContainer}
+  renderItem={({ item }) => (
+    <TouchableOpacity
+      style={styles.categoryCard}
+      onPress={() =>
+        router.push({
+          pathname: `/categories/${item}`,
+          params: { product: JSON.stringify(item) },
+        })
+      }
+    >
+      <Image source={{ uri: "https://res.cloudinary.com/dl92zh3w0/image/upload/v1740472730/cld-sample-5.jpg" }} style={styles.categoryImage} />
+      <Text style={styles.categoryText}>{item}</Text>
+    </TouchableOpacity>
+  )}
+/>
+}
     </View>
   );
 };
