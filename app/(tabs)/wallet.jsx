@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,10 +6,12 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
+import { WalletContext } from "../../src/contexts/AuthContext";
 
 const WalletScreen = () => {
-  const [walletBalance, setWalletBalance] = useState(5000);
+
   const [cashbackEarned, setCashbackEarned] = useState(1500);
+  const { walletBalance, fetchBalance ,cashBack}=useContext(WalletContext)
 
   const transactions = [
     {
@@ -41,7 +43,9 @@ const WalletScreen = () => {
       referrer: null,
     },
   ];
-
+useEffect(()=>{
+fetchBalance()
+},[])
   return (
     <View style={styles.container}>
       {/* Wallet Balance Section */}
@@ -53,7 +57,7 @@ const WalletScreen = () => {
       {/* Cashback Earned Section */}
       <View style={styles.cashbackContainer}>
         <Text style={styles.cashbackTitle}>💸 Cashback Earned</Text>
-        <Text style={styles.cashbackAmount}>₹{cashbackEarned}</Text>
+        <Text style={styles.cashbackAmount}>₹{cashBack}</Text>
       </View>
 
       {/* Buttons for Add Money & Withdraw */}

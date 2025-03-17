@@ -10,6 +10,7 @@ export const WalletProvider = ({ children }) => {
     try {
       const { data } = await axios.get("https://yourapi.com/api/wallet");
       setBalance(data.balance);
+      console.log(data)
     } catch (error) {
       console.error("Failed to fetch wallet balance:", error);
     }

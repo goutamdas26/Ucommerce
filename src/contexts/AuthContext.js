@@ -111,20 +111,24 @@ export const OrderProvider = ({ children }) => {
 // Wallet Context
 export const WalletContext = createContext();
 export const WalletProvider = ({ children }) => {
-  const [balance, setBalance] = useState(0);
+  const [walletBalance, setWalletBalance] = useState(0);
+  const [cashBack, setCashBack] = useState(0);
 
   const fetchBalance = async () => {
     try {
-      const { data } = await axios.get("https://yourapi.com/api/wallet", {
-        headers: { Authorization: `Bearer ${SecureStore.getItemAsync("userToken")}` },
-      });
-      setBalance(data.balance);
+
+      const userEmail=await SecureStore.getItemAsync("userEmail")
+      const token = await SecureStore.getItemAsync("userToken");
+      console.log(userEmail)
+      const { data } = await axios.get(`${API_URL}/api/wallet/user/${userEmail}`);
+      setWalletBalance(data.balance);
+      setCashBack(data.cashback);
     } catch (error) {
       console.error("Failed to fetch wallet balance:", error);
     }
   };
 
-  return <WalletContext.Provider value={{ balance, fetchBalance }}>{children}</WalletContext.Provider>;
+  return <WalletContext.Provider value={{ walletBalance, fetchBalance ,cashBack}}>{children}</WalletContext.Provider>;
 };
 
 // Wishlist Context

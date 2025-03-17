@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -14,11 +14,12 @@ import * as SecureStore from "expo-secure-store";
 import userImage from '../../assets/images/user.png';
 import * as Clipboard from "expo-clipboard";
 import * as Updates from 'expo-updates';
+import { WalletContext } from "../../src/contexts/AuthContext";
 const AccountScreen = () => {
-  const [walletBalance, setWalletBalance] = useState(5000);
+  
   const [referId] = useState("GOUTAM123"); // Sample referral ID
   const router = useRouter();
-
+const { walletBalance, fetchBalance }=useContext(WalletContext)
   const handleWishlistPress = () => {
     // Check if wishlist is working
     // If not, you can show an alert or redirect to a different page
@@ -42,6 +43,11 @@ const AccountScreen = () => {
     await SecureStore.deleteItemAsync("userToken");
     await Updates.reloadAsync();
   }
+  useEffect(()=>{
+fetchBalance()
+
+  },[])
+
   return (
     <View style={styles.container}>
       {/* User Profile & Wallet Section */}

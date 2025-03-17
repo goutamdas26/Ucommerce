@@ -30,7 +30,10 @@ const LoginScreen = () => {
       if (response.status==200) {
         // Store token in SecureStore
         await SecureStore.setItemAsync("userToken", response.data.token);
-        console.log(response.data.token)
+        await SecureStore.setItemAsync("userEmail", response.data.userDetails.email);
+        // await SecureStore.setItemAsync("userNumber", response.data.userDetails.number);
+        await SecureStore.setItemAsync("userName", response.data.userDetails.name);
+        console.log(response.data.userDetails)
         Alert.alert("Success", "Login Successful!");
         router.replace("/(tabs)"); // Navigate to Home
       } else {
