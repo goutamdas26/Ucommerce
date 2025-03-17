@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ToastAndroid } from 'react-native';
 import React, { useState } from 'react';
 import { router } from 'expo-router';
 import Constants from "expo-constants";
@@ -22,13 +22,18 @@ const SignupScreen = () => {
       });
 
       if (response.data.success) {
-        Alert.alert("Success", "Account created successfully!");
-        router.push('/login'); // Redirect to login after successful signup
+        ToastAndroid.show("Account created successfully!", ToastAndroid.SHORT); // Android toast message
+        // Use replace instead of push to navigate to login
+        router.replace("/login"); // Redirect to login after successful signup
       } else {
-        Alert.alert("Error", response.data.message || "Signup failed! Please try again.");
+        ToastAndroid.show(response.data.message || "Signup failed! Please try again.", ToastAndroid.SHORT); // Android toast message
       }
     } catch (error) {
-      Alert.alert("Error", "Signup failed! Please try again.");
+      if (error.response && error.response.status === 400) {
+        ToastAndroid.show("User Already Exist.", ToastAndroid.SHORT); // Android toast message
+      } else {
+        ToastAndroid.show("Signup failed! Please try again.", ToastAndroid.SHORT); // Android toast message
+      }
     }
   };
 
