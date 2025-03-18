@@ -224,3 +224,29 @@ export const ProductProvider = ({ children }) => {
     </ProductContext.Provider>
   );
 };
+
+// Wishlist Context
+export const TransactionContext = createContext();
+export const TransactionProvider = ({ children }) => {
+ const [transaction,setTransaction]=useState([])
+
+  const fetchTransaction = async () => {
+    try {
+
+      const userEmail=await SecureStore.getItemAsync("userEmail")
+      console.log(userEmail)
+      const { data } = await axios.get(`${API_URL}/api/transaction/history/${userEmail}`);
+      setTransaction(data);
+
+    } catch (error) {
+      console.error("Failed to fetch wallet balance:", error);
+    }
+  };
+
+
+  return (
+    <TransactionContext.Provider value={{fetchTransaction, transaction }}>
+      {children}
+    </TransactionContext.Provider>
+  );
+};

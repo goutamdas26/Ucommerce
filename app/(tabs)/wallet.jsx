@@ -6,45 +6,29 @@ import {
   FlatList,
   StyleSheet,
 } from "react-native";
-import { WalletContext } from "../../src/contexts/AuthContext";
+import { TransactionContext, WalletContext } from "../../src/contexts/AuthContext";
 
 const WalletScreen = () => {
 
   const [cashbackEarned, setCashbackEarned] = useState(1500);
   const { walletBalance, fetchBalance ,cashBack}=useContext(WalletContext)
+const {transaction,fetchTransaction}=useContext(TransactionContext)
 
-  const transactions = [
-    {
-      id: "1",
-      type: "Credit",
-      amount: 1000,
-      date: "Mar 1, 2025",
-      referrer: "Rahul Sharma",
-    },
-    {
-      id: "2",
-      type: "Debit",
-      amount: 500,
-      date: "Feb 28, 2025",
-      referrer: null,
-    },
-    {
-      id: "3",
-      type: "Credit",
-      amount: 2000,
-      date: "Feb 25, 2025",
-      referrer: "Amit Verma",
-    },
-    {
-      id: "4",
-      type: "Debit",
-      amount: 1000,
-      date: "Feb 20, 2025",
-      referrer: null,
-    },
-  ];
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("en-IN", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Asia/Kolkata",
+    });
+  };
 useEffect(()=>{
 fetchBalance()
+fetchTransaction()
 },[])
   return (
     <View style={styles.container}>
@@ -72,27 +56,32 @@ fetchBalance()
 
       {/* Transaction History */}
       <Text style={styles.sectionTitle}>📜 Transaction History</Text>
-      <FlatList
-        data={transactions}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View
-            style={[
-              styles.transactionItem,
-              item.type === "Credit" ? styles.credit : styles.debit,
-            ]}
-          >
-            <Text style={styles.transactionText}>
-              {item.type === "Credit" ? "➕ Credited" : "➖ Debited"} ₹
-              {item.amount}
-            </Text>
-            {item.referrer && (
-              <Text style={styles.referrerText}>From: {item.referrer}</Text>
-            )}
-            <Text style={styles.transactionDate}>{item.date}</Text>
-          </View>
+  {
+    transaction.length>0 && 
+    <FlatList
+    data={transaction}
+    keyExtractor={(item) => item._id}
+    renderItem={({ item }) => (
+      <View
+        style={[
+          styles.transactionItem,
+          // (item.type === "Credit" || item.type=="cashback") ? styles.credit : styles.debit,
+          item.type=="Credit"? styles.credit : item.type=="cashback"? styles.credit : styles.debit
+        ]}
+      >
+        <Text style={styles.transactionText}>
+          {/* {(item.type === "Credit" || item.type=="cashback") ? "➕ Credited" : "➖ Debited"} ₹ */}
+          {item.type=="Credit"?"➕ Credited " : item.type=="cashback"? "➕ Cashback " :"➖ Debited "  }₹
+          {item.amount}
+        </Text>
+        {item.referrer && (
+          <Text style={styles.referrerText}>From: {item.referrer}</Text>
         )}
-      />
+        <Text style={styles.transactionDate}>{formatDate(item.createdAt)}</Text>
+      </View>
+    )}
+  />
+  }
     </View>
   );
 };
