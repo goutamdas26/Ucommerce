@@ -17,9 +17,20 @@ const API_URL = Constants.expoConfig.extra.API_URL;
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const {products, fetchProducts, addProduct, updateProduct, deleteProduct  } = useContext(ProductContext);
+  const {
+    products,
+    fetchProducts,
+    addProduct,
+    updateProduct,
+    deleteProduct,
+    getCategoryList,
+    categoryList,
+  } = useContext(ProductContext);
+ 
+
   useEffect(()=>{
 fetchProducts()
+     getCategoryList();
   },[])
 
   return (
@@ -42,7 +53,7 @@ fetchProducts()
           showsHorizontalScrollIndicator={false}
           style={styles.categoryScroll}
         >
-          {["Shoes", "Watches", "Mobiles", "Laptops", "Fashion"].map(
+          {categoryList.map(
             (item, index) => (
               <TouchableOpacity
                 key={index}

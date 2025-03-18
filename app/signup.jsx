@@ -30,8 +30,11 @@ const SignupScreen = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
+        console.log(error);
+
         ToastAndroid.show("User Already Exist.", ToastAndroid.SHORT); // Android toast message
       } else {
+        console.log(error)
         ToastAndroid.show("Signup failed! Please try again.", ToastAndroid.SHORT); // Android toast message
       }
     }
